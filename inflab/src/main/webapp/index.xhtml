@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Echo System</title>
+    <style>
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #0066cc;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <h1>Простая Echo System</h1>
+    <p>Введите сообщение и получите его обратно в верхнем регистре</p>
+    
+    <h:form id="inputForm">
+        <h:panelGrid columns="2">
+            <h:outputLabel for="message" value="Ваше сообщение:" />
+            <h:inputText id="message" value="#{echoBean.inputMessage}" 
+                        required="true" 
+                        requiredMessage="Введите сообщение!"
+                        style="width: 300px;"/>
+        </h:panelGrid>
+        
+        <h:commandButton value="Отправить" action="#{echoBean.processForm}">
+            <f:ajax execute="@form" render="outputPanel"/>
+        </h:commandButton>
+    </h:form>
+    
+    <h:panelGroup id="outputPanel">
+        <div class="output" rendered="#{not empty echoBean.outputMessage}">
+            #{echoBean.outputMessage}
+        </div>
+    </h:panelGroup>
+</h:body>
+</html>
